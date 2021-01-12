@@ -1,10 +1,8 @@
-import { store } from './store';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Main } from '../app/components/Main';
-// import { Dashboard } from '../app/components/Dashboard';
+import { Main } from './components/Main';
 
 ReactDOM.render(
-    <Main />,
+    <Main/>,
     document.getElementById("app")
-)
+);
