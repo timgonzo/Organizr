@@ -15,4 +15,4 @@ function mapStateToProps(state){
     }
 }
 
-export const ConnectedDashboard = connect(mapStateToProps)(Dashboard);
+export const ConnectedDashboard = (connect(mapStateToProps)(Dashboard));
