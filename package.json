@@ -7,7 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack",
     "dev": "webpack serve --mode development --open",
-    "initialize": "babel-node src/server/initialize-db.js"
+    "initialize": "babel-node src/server/initialize-db.js",
+    "server": "babel-node src/server/server.js",
+    "server-test": "babel-node src/server/server.spec.js",
+    "start-dev": "concurrently \"npm run server\" \"npm run dev\""
   },
   "keywords": [],
   "author": "TimGonzo",
@@ -19,7 +22,7 @@
     "@babel/preset-react": "^7.12.10",
     "@babel/register": "^7.12.10",
     "babel-loader": "^8.2.2",
-    "body-parser": "^1.19.0",
+    "concurrently": "^5.3.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "mongodb": "^3.6.3",
@@ -28,6 +31,7 @@
     "webpack-dev-server": "^3.11.1"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "history": "^5.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
