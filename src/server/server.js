@@ -1,8 +1,8 @@
 const express = require('express');
 import cors from 'cors';
 import { connectDB } from './connect-db';
-// do app.use(express.json()) instead of app.use(bodyParser.json()0
-
+import './initialize-db';
+import { authenticationRoute } from './authenticate';
 
 let app = express();
 let port = 3000;
@@ -20,6 +20,8 @@ app.use(
     express.json(),
     express.urlencoded({extended: true})
 );
+
+authenticationRoute(app);
 
 export const addNewTask = async (task)=>{
     let db = await connectDB();

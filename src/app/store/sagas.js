@@ -31,12 +31,32 @@ export function* taskModificationSaga() {
             mutations.SET_TASK_COMPLETE
         ]);
         axios.post(url + "task/update", {
-            task:{
+            task: {
                 id: task.taskID,
                 groupID: task.groupID,
                 name: task.name,
                 isComplete: task.isComplete
             }
         })
+    }
+}
+
+export function* userAuthenticationSaga() {
+    while(true){
+        const {username, password} = yield take(mutations.REQUEST_AUTHENTICATE_USER);
+        try{
+            const{data} = yield axios.post(url + 'authenticate', {username, password});
+            if (!data){
+                throw new Error();
+            }
+
+            console.log("Authenticated", data);
+            yield put(mutations.setState(data.state));
+            yield put(mutations.processAuthenticateUser(mutations.AUTHENTICATED));
+            //history.push('dashboard');
+
+        } catch(e){
+            yield put(mutations.processAuthenticateUser(mutations.NOT_AUTHENTICATED))
+        }
     }
 }
