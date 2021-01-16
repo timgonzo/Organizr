@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack",
+    "start": "npm run server",
     "dev": "webpack serve --mode development --open",
     "initialize": "babel-node src/server/initialize-db.js",
     "server": "babel-node src/server/server.js",

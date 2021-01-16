@@ -1,11 +1,12 @@
 const express = require('express');
 import cors from 'cors';
-import { connectDB } from './connect-db';
+import {connectDB} from './connect-db';
 import './initialize-db';
-import { authenticationRoute } from './authenticate';
+import {authenticationRoute} from './authenticate';
+import path from "path";
 
 let app = express();
-let port = 3000;
+let port = process.env.PORT || 3000;
 
 
 app.listen(port, () => console.log(`App listening at http://localhost:${port}\``));
@@ -23,13 +24,20 @@ app.use(
 
 authenticationRoute(app);
 
-export const addNewTask = async (task)=>{
+if (process.env.NODE_ENV == 'production') {
+    app.use(express.static(path.resolve(__dirname, '../../dist')));
+    app.get('/*', (req, res) => {
+        res.sendFile(path.resolve('index.html'));
+    });
+}
+
+export const addNewTask = async (task) => {
     let db = await connectDB();
     let collection = db.collection('tasks');
     await collection.insertOne(task);
 };
 
-export const updateTask = async (task)=>{
+export const updateTask = async (task) => {
     let {id, group, isComplete, name} = task;
     let db = await connectDB();
     let collection = db.collection('tasks');
